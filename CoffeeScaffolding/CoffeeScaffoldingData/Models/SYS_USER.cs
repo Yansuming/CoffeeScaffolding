@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CoffeeScaffolding.CoffeeScaffoldingData.EntityDomain;
+using System.ComponentModel.DataAnnotations;
 
 namespace CoffeeScaffolding.CoffeeScaffoldingData.Models
 {
-    public class SYS_USER
+    public class SYS_USER:BaseTable
     {
         public long ID { get; set; }        
         public string? ACCOUNT { get; set; } 
@@ -15,10 +16,5 @@ namespace CoffeeScaffolding.CoffeeScaffoldingData.Models
         public string? ID_CARD { get; set; }
         public string? OPEN_ID { get; set; }
         public string? UNION_ID { get; set; }
-        public DateTime CREATE_TIME { get; set; }
-        public long CREATE_USER_ID { get; set; }
-        public DateTime UPDATE_TIME { get; set; }
-        public long UPDATE_USER_ID { get; set;}
-        public int DATA_VERSION { get; set; }
     }
 }
