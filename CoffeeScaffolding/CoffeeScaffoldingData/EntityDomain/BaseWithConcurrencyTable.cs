@@ -19,15 +19,17 @@ namespace CoffeeScaffolding.CoffeeScaffoldingData.EntityDomain
             if (Entity.Entity is IBaseWithConcurrencyTable)
             {
                 var BaseWithConcurrencyTable = Entity.Entity as BaseWithConcurrencyTable;
-                
-                if (Entity.State == EntityState.Added)
+                if (BaseWithConcurrencyTable != null)
                 {
-                    BaseWithConcurrencyTable.EDIT_VERSION = 0;
-                }
-                else if (Entity.State == EntityState.Modified)
-                {
-                    //自增
-                    BaseWithConcurrencyTable.EDIT_VERSION += 1;
+                    if (Entity.State == EntityState.Added)
+                    {
+                        BaseWithConcurrencyTable.EDIT_VERSION = 0;
+                    }
+                    else if (Entity.State == EntityState.Modified)
+                    {
+                        //自增
+                        BaseWithConcurrencyTable.EDIT_VERSION += 1;
+                    }
                 }
             }
         }

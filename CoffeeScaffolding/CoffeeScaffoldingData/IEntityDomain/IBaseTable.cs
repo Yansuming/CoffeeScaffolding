@@ -1,5 +1,4 @@
-﻿
-using CoffeeScaffolding.CoffeeScaffoldingData.IEntityDomain.BaseRoot;
+﻿using CoffeeScaffolding.CoffeeScaffoldingData.IEntityDomain.BaseRoot;
 
 namespace CoffeeScaffolding.CoffeeScaffoldingData.IEntityDomain
 {
