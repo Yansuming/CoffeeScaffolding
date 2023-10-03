@@ -1,4 +1,7 @@
+using CoffeeScaffolding.CoffeeHostServices;
 using CoffeeScaffolding.CoffeeScaffoldingData;
+using CoffeeScaffolding.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,13 +17,35 @@ builder.Services.AddSwaggerGen();
 if (builder.Environment.IsProduction())
 {
     builder.Services.AddDbContext<CoffeeScaffoldingDBContext>(x => x.UseSqlServer(""));
+    builder.Services.AddDbContext<CoffeeIdentityDbContext>(x => x.UseSqlServer(""));
 }
 else
 {
     builder.Services.AddDbContext<CoffeeScaffoldingDBContext>(x=>x.UseInMemoryDatabase("InMem"));
+    builder.Services.AddDbContext<CoffeeIdentityDbContext>(x => x.UseInMemoryDatabase("InMem"));
 }
 
+builder.Services.AddDataProtection();
+builder.Services.AddIdentityCore<CoffeeUser>(opt => { 
+    opt.Password.RequireDigit = true;
+    opt.Password.RequireLowercase = true;
+    opt.Password.RequireUppercase = true;
+    opt.Password.RequiredLength = 10;
+    opt.Password.RequireNonAlphanumeric = true;
+
+    opt.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultPhoneProvider;
+    opt.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultProvider;
+});
+IdentityBuilder identityBuilder = new IdentityBuilder(typeof(CoffeeUser), typeof(CoffeeRole),builder.Services);
+identityBuilder.AddEntityFrameworkStores<CoffeeIdentityDbContext>().AddDefaultTokenProviders().AddUserManager<UserManager<CoffeeUser>>().AddRoleManager<RoleManager<CoffeeRole>>();
+
+//hostService
+builder.Services.AddHostedService<ExportDataHostService>();
+
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

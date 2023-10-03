@@ -8,7 +8,7 @@ namespace CoffeeScaffolding.CoffeeScaffoldingData
 {
     public class CoffeeScaffoldingDBContext : DbContext
     {
-        public CoffeeScaffoldingDBContext(DbContextOptions options) : base(options)
+        public CoffeeScaffoldingDBContext(DbContextOptions<CoffeeScaffoldingDBContext> options) : base(options)
         {
 
         }
