@@ -1,5 +1,6 @@
 ﻿using CoffeeScaffolding.CoffeeScaffoldingData;
 using CoffeeScaffolding.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +12,13 @@ namespace CoffeeScaffolding.Controllers
     {
         private readonly CoffeeScaffoldingDBContext db;
         private readonly UserManager<CoffeeUser> userManager;
+        private readonly IMediator  mediator;
 
-        public SampleController( CoffeeScaffoldingDBContext db, UserManager<CoffeeUser> userManager)
+        public SampleController( CoffeeScaffoldingDBContext db, UserManager<CoffeeUser> userManager,IMediator  mediator)
         {
             this.db = db;
             this.userManager = userManager;
+            this.mediator = mediator;
         }
         [HttpGet]
         public JsonResult Get()
@@ -37,6 +40,14 @@ namespace CoffeeScaffolding.Controllers
             }
             return new JsonResult(result.UserName);
 
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> doMediatR()
+        {
+            doSometingBeforeSendMailMediatR ds = new doSometingBeforeSendMailMediatR("yansuming");            
+            await mediator.Publish(ds);
+            return new JsonResult("");
         }
     }
 }

@@ -42,6 +42,8 @@ identityBuilder.AddEntityFrameworkStores<CoffeeIdentityDbContext>().AddDefaultTo
 //hostService
 builder.Services.AddHostedService<ExportDataHostService>();
 
+//MediatR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
 var app = builder.Build();
 
