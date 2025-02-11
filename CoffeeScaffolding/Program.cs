@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CoffeeScaffolding.CoffeeScaffoldingUtil.Json;
+using CoffeeScaffolding.CoffeeScaffoldingUtil.Quartz;
 
 // Serilog
 Log.Logger = new LoggerConfiguration()
@@ -39,7 +40,7 @@ try
         builder.Services.AddDbContext<CoffeeScaffoldingDBContext>(x => x.UseInMemoryDatabase("InMem"));
         builder.Services.AddDbContext<CoffeeIdentityDbContext>(x => x.UseInMemoryDatabase("InMem"));
     }
-
+    builder.Services.AddQuartz();
     builder.Services.AddDataProtection();
     builder.Services.AddIdentityCore<CoffeeUser>(opt =>
     {
@@ -104,11 +105,13 @@ try
     //pre database
     PreDb.PrepPopulation(app, builder.Environment.IsProduction());
 
+    app.RunQuartzJob("");//Cron表达式
+
     app.Run();
 }
 catch (Exception ex)
 {
-    Log.Fatal(ex, "Jns Data Transfer terminated unexpectedly");    
+    Log.Fatal(ex, "Coffee Scaffolding terminated unexpectedly");    
 }
 finally
 {
