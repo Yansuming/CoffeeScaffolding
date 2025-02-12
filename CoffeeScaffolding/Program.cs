@@ -61,9 +61,6 @@ try
 
     //MediatR
     builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
-    var app = builder.Build();
-
     //JWT
     builder.Services.AddAuthentication(options =>
     {
@@ -86,6 +83,7 @@ try
     });
     builder.Services.AddAuthorization();
 
+    var app = builder.Build();
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
