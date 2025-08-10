@@ -21,10 +21,15 @@ try
     var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddSerilog();
     // Add services to the container.
-    builder.Services.AddControllers().AddJsonOptions(o => {
+    builder.Services.AddControllers(options =>
+    {
+        options.Filters.Add<CoffeeScaffolding.Controllers.Filters.ActionLogFilter>();
+    })
+    .AddJsonOptions(o => {
         o.JsonSerializerOptions.PropertyNamingPolicy = null;
         o.JsonSerializerOptions.Converters.Add(new DatetimeJsonConverter());
     });
+    // builder.Services.AddScoped<CoffeeScaffolding.Filters.ActionLogFilter>();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();

@@ -3,11 +3,13 @@ using CoffeeScaffolding.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CoffeeScaffolding.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    // [ServiceFilter(typeof(CoffeeScaffolding.Filters.ActionLogFilter))]
     public class SampleController : ControllerBase
     {
         private readonly CoffeeScaffoldingDBContext db;
