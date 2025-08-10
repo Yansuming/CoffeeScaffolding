@@ -81,14 +81,25 @@ namespace CoffeeScaffolding.CoffeeScaffoldingUtil.Quartz
                         IJobDetail job = JobBuilder.Create(type)
                             .WithIdentity(taskinfo.jobName, taskinfo.jobGroup)
                             .Build();
-                        ITrigger trigger = TriggerBuilder.Create()
-                            .WithIdentity(taskinfo.triggerName, taskinfo.jobGroup)
-                            .StartAt(DateTimeOffset.Now.AddSeconds(3))
-                            .WithCronSchedule(taskinfo.cron)
-                        // .WithSimpleSchedule(x => x
-                        //     .WithIntervalInSeconds(taskinfo.seconds)
-                        //     .RepeatForever())
-                        .Build();
+                        ITrigger trigger;
+                        if (!string.IsNullOrWhiteSpace(taskinfo.cron))
+                        {
+                            trigger = TriggerBuilder.Create()
+                                .WithIdentity(taskinfo.triggerName, taskinfo.jobGroup)
+                                .StartAt(DateTimeOffset.Now.AddSeconds(3))
+                                .WithCronSchedule(taskinfo.cron)
+                                .Build();
+                        }
+                        else
+                        {
+                            trigger = TriggerBuilder.Create()
+                                .WithIdentity(taskinfo.triggerName, taskinfo.jobGroup)
+                                .StartAt(DateTimeOffset.Now.AddSeconds(3))
+                                .WithSimpleSchedule(x => x
+                                    .WithIntervalInSeconds(taskinfo.seconds)
+                                    .RepeatForever())
+                                .Build();
+                        }
 
                         await scheduler.ScheduleJob(job, trigger);
                         if (taskinfo.state == 0)
