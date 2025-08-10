@@ -25,7 +25,7 @@ namespace CoffeeScaffolding.Controllers
         {
             using(db)
             {
-                var result = db.SYS_USER.ToList();
+                var result = db.CoffeeUser.ToList();
                 return new JsonResult(result);
             }
         }

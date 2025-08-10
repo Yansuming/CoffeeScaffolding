@@ -1,5 +1,5 @@
 ﻿using CoffeeScaffolding.CoffeeScaffoldingData.EFCoreExtensions;
-using CoffeeScaffolding.CoffeeScaffoldingData.Models;
+using CoffeeScaffoldingData.Models.RABC;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -12,7 +12,7 @@ namespace CoffeeScaffolding.CoffeeScaffoldingData
         {
 
         }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -51,13 +51,17 @@ namespace CoffeeScaffolding.CoffeeScaffoldingData
                     /*将实体类型，传入配置方法
                      * entityType.ClrType ==实体类
                      * modelBuilder
-                    */                    
+                    */
                     ConfigureEntityRootMethodInfo.MakeGenericMethod(entityType.ClrType).Invoke(this, new object[] { modelBuilder });
                 }
             }
-            
-        }
 
-        public  DbSet<SYS_USER> SYS_USER => Set<SYS_USER>();
+        }
+        public DbSet<CoffeeFunction> CoffeeFunction => Set<CoffeeFunction>();
+        public DbSet<CoffeeMenu> CoffeeMenus => Set<CoffeeMenu>();
+        public DbSet<CoffeeRole> CoffeeRole => Set<CoffeeRole>(); 
+        public DbSet<CoffeeRoleFunction> CoffeeRoleFunction => Set<CoffeeRoleFunction>(); 
+        public DbSet<CoffeeUser> CoffeeUser => Set<CoffeeUser>(); 
+        public DbSet<CoffeeUserRole> CoffeeUserRole => Set<CoffeeUserRole>();
     }
 }

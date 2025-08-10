@@ -27,7 +27,7 @@ namespace CoffeeScaffolding.CoffeeHostServices
                 {
                     while (!stoppingToken.IsCancellationRequested)
                     {
-                        var users = await dbContext.SYS_USER.ToListAsync();
+                        var users = await dbContext.CoffeeUser.ToListAsync();
                         foreach (var item in users)
                         {
                             await File.WriteAllTextAsync(@"D:\temp\text.txt", item.ToString(), Encoding.UTF8);

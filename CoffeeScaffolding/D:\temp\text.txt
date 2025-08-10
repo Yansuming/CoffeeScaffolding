@@ -1,0 +1,1 @@
+﻿CoffeeScaffoldingData.Models.RABC.CoffeeUser

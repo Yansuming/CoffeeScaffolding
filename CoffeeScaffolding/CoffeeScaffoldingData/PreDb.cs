@@ -1,7 +1,7 @@
-﻿using CoffeeScaffolding.CoffeeScaffoldingData.Models;
-using CoffeeScaffolding.Identity;
+﻿using CoffeeScaffolding.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using CoffeeDomain = CoffeeScaffoldingData.Models.RABC;
 
 namespace CoffeeScaffolding.CoffeeScaffoldingData
 {
@@ -42,18 +42,38 @@ namespace CoffeeScaffolding.CoffeeScaffoldingData
                 }
             }
 
-            if (!context.SYS_USER.Any())
+            if (!context.CoffeeUser.Any())
             {
-                Console.WriteLine("--> Seeding SysUser Data");
+                Console.WriteLine("--> Seeding CoffeeUser Data");
                 context.AddRange(
-                    new SYS_USER() { ACCOUNT = "admin", PASSWORD = "abc", USER_NAME = "yansuming", USER_NAME_EN = "yan", USER_EMAIL = "abc@abc.com" },
-                    new SYS_USER() { ACCOUNT = "test", PASSWORD = "abc", USER_NAME = "test", USER_NAME_EN = "t", USER_EMAIL = "abc@abc.com" }
-                    );
+                    new CoffeeDomain.CoffeeUser
+                    {
+                        Account = "admin",
+                        PasswordHash = "abc",
+                        UserName = "yansuming",
+                        Email = "abc@abc.com",
+                        IsActive = true,
+                        AccessFailedCount = 0,
+                        EmailConfirmed = false,
+                        PhoneNumberConfirmed = false
+                    },
+                    new CoffeeDomain.CoffeeUser
+                    {
+                        Account = "test",
+                        PasswordHash = "abc",
+                        UserName = "test",
+                        Email = "abc@abc.com",
+                        IsActive = true,
+                        AccessFailedCount = 0,
+                        EmailConfirmed = false,
+                        PhoneNumberConfirmed = false
+                    }
+                );
                 context.SaveChanges();
             }
             else
             {
-                Console.WriteLine("--> Already have SysUser data");
+                Console.WriteLine("--> Already have CoffeeUser data");
             }
         }
     
