@@ -23,7 +23,7 @@ try
     // Add services to the container.
     builder.Services.AddControllers(options =>
     {
-        options.Filters.Add<CoffeeScaffolding.Controllers.Filters.ActionLogFilter>();
+        options.Filters.Add<CoffeeScaffolding.Controllers.Filters.ActionFilter>();
     })
     .AddJsonOptions(o => {
         o.JsonSerializerOptions.PropertyNamingPolicy = null;

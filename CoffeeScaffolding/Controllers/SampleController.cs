@@ -23,6 +23,14 @@ namespace CoffeeScaffolding.Controllers
             this.mediator = mediator;
         }
         [HttpGet]
+        public JsonResult Geterror()
+        {
+            int i = 0;
+            int j = 1 / i;
+            return new JsonResult("This j will not be reached due to the error above.");
+        }
+
+        [HttpGet]
         public JsonResult Get()
         {
             using(db)

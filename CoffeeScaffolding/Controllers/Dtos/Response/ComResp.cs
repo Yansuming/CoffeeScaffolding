@@ -14,8 +14,8 @@ namespace CoffeeScaffolding.Controllers.Dtos.Response
             /// </summary>
             this.data = data;
         }
-        public int flag;
-        public object data;
+        public int flag { get; }
+        public object data{ get; }
     }
 
     public class ListComResp<T>
@@ -26,9 +26,9 @@ namespace CoffeeScaffolding.Controllers.Dtos.Response
             this.CurrentPage = CurrentPage;
             this.data = data;
         }
-        public int TotalPages;
-        public int CurrentPage;
-        public List<T> data;
+        public int TotalPages { get; }
+        public int CurrentPage { get; }
+        public List<T> data { get; }
     }
 
     public enum FlagEnum
